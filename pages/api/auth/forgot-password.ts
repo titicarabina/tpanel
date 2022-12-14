@@ -14,23 +14,25 @@ export default async function handler(  req: NextApiRequest,
   const { email } = req.body
   await dbConnect();
   const client = await clientPromise;
-  const db = client.db();
   const user = await User.findOne({ email: email });
-        console.log("User found: ", user)
+  console.log("User found: ", user)
   if (user) {
     const expires = new Date()
     const token = uuidv4()
     expires.setHours(expires.getHours() + 1);
     try {
-      await db.collection("users").updateOne({ email: email }, { $set: { reset_token: token, reset_expires: expires.toISOString() }, $currentDate: { lastModified: true } })
+      await User.updateOne({ email: email }, { $set: { pwd_reset_token: token, token_reset_expires: expires.toISOString() }, $currentDate: { lastModified: true } })
       await emailHelper.sendEmail({ to: email, token })
       console.log("email sent")
       res.status(200).json("Email sent")
+      client.close()
     } catch (err) {
       console.error('unexpected error', err)
       res.status(500).json("Unexpected error")
+      client.close()
     }
   } else {
-    res.status(404).json("Email not found")
+    res.status(200).json("Email sent")
+    client.close()
   }
 }

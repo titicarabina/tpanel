@@ -142,6 +142,10 @@ const Resetpassword: NextPage = () => {
                       </p>
                     ) : error === "not_equal" ? (
                       <p className="text-red-500">Passwords are not equal.</p>
+                    ) : error === "eroare" ? (
+                      <p className="text-red-500">
+                        Eroare , Link expirat sau token invalid.
+                      </p>
                     ) : (
                       <div></div>
                     )}

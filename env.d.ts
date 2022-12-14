@@ -11,5 +11,6 @@ namespace NodeJS {
         readonly EMAIL_HOST: string
         readonly MONGODB_DATABASE: string
         readonly MONGODB_COLLECTION: string
+        readonly TEBEX_SECRET: string
     }
   }

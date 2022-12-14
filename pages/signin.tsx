@@ -95,7 +95,7 @@ const Signin: NextPage = () => {
                         <input
                           type="text"
                           placeholder="email"
-                          className="input input-bordered"
+                          className="input input-bordered text-white"
                           onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
@@ -104,22 +104,22 @@ const Signin: NextPage = () => {
                           <span className="label-text">Password</span>
                         </label>
                         <input
-                          type="text"
+                          type="password"
                           placeholder="password"
-                          className="input input-bordered"
+                          className="input input-bordered text-white"
                           onChange={(e) => setPassword(e.target.value)}
                         />
-                        <label className="label">
-                          <a
-                            href="#"
-                            className="label-text-alt link link-hover"
-                          >
-                            Forgot password?
-                          </a>
+                        <label
+                          className="label text-gray-200 text-xs cursor-pointer"
+                          onClick={() => Router.push("/forgot-password")}
+                        >
+                          Forgot password?
                         </label>
                       </div>
                       <div className="form-control mt-6">
-                        <button className="btn btn-primary">Login</button>
+                        <button className="btn btn-primary" type="submit">
+                          Login
+                        </button>
                       </div>
                     </div>
                   </div>

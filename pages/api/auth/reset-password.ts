@@ -13,32 +13,31 @@ export default async function handler(  req: NextApiRequest,
         .json({ error: "Bad Request" });
     }
   const { password, token } = req.body
-  await dbConnect();
-  const client = await clientPromise;
-  const db = client.db();
   if (password && token) {
+    await dbConnect();
+    const client = await clientPromise;
     try {
-      const user = await User.findOne({ reset_token: token });
-      console.log(user)
+      const user = await User.findOne({ pwd_reset_token: token });
       const now = new Date()
-      console.log(!!user)
-      console.log(new Date(user.reset_expires))
-      console.log(new Date(user.reset_expires) > now)
-      if (!!user && new Date(user.reset_expires) > now) {
+      if (!!user && new Date(user.token_reset_expires) > now) {
         const hash = await bcrypt.hash(password, saltRounds)
-        await db.collection("users").updateOne({ email: user.email }, { $set: { hashedPassword: hash, reset_expires: null, reset_token: null }, $currentDate: { lastModified: true } })
+        await User.updateOne({ email: user.email }, { $set: { hashedPassword: hash, token_reset_expires: null, pwd_reset_token: null }, $currentDate: { lastModified: true } })
         console.log("password updated")
         res.status(200).json("Password updated")
+        client.close()
       } else {
-        console.log("Token expired")
-        res.status(404).json("Token expired")
+        console.log("No user or Token expired")
+        res.status(404).json("No user or Token expired")
+        client.close()
       }
     } catch (err) {
       console.error('Unexpected error on password reset', err)
       res.status(500).json("Unexpected error on password reset")
+      client.close()
     }
+    client.close()
   } else {
-    console.log("Token expired")
-    res.status(404).json("Token expired")
+    console.log("No password or Token valid")
+    res.status(404).json("No password or Token valid")
   }
 }
