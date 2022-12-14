@@ -5,43 +5,38 @@ import { GrCopy, GrFormCheckmark } from "react-icons/gr";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import clientPromise from "../../../lib/mongodb";
 import { useSession } from "next-auth/react";
-import { getSession } from "next-auth/client";
+import { unstable_getServerSession } from "next-auth/next";
+import authOptions from "../../../pages/api/auth/[...nextauth]";
+import dbConnect from "../../../utils/dbConnect";
 
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-  const client = await clientPromise;
-  const db = client.db();
-  const user = await db
-    .collection("users")
-    .findOne({ email: session.user.email });
-  return {
-    props: {
-      user: JSON.parse(JSON.stringify(user)),
-    },
+type userData = {
+  user: {
+    connection_token: string;
+    createdAt: string;
+    email: string;
+    hashedPassword: string;
+    isAdmin: boolean;
+    public_token: string;
+    role: string;
+    username: string;
+    __v: number;
+    _id: string;
   };
 };
 
-const Index: NextPage = () => {
-  const { data: session } = useSession();
-  const [token, setToken] = React.useState("");
+const Index = (user: userData) => {
+  const [token, setToken] = React.useState(user.user.connection_token);
   const [serverName, setServerName] = React.useState("Vamos Romania Roleplay");
   const [licenseRenewal, setLicenseRenewal] = React.useState("2022-01-01");
   const [error, setError] = React.useState("");
   const [loading, setLoading] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
+  const [userData, setUserData] = React.useState(user);
+
   useEffect(() => {
-    if (session) {
-      console.log(session);
-    }
-  }, [session]);
+    console.log("User data: ", userData);
+  }, [userData]);
+
   return (
     <div className="flex">
       <SideBar />
@@ -164,31 +159,29 @@ const Index: NextPage = () => {
                 />
               </span>
             </p>
-            <p className="text-gray-500 grid w-full">
-              Connection Token:{" "}
-              <span className="text-gray-300">
-                <input
-                  type="text"
-                  className="input input-bordered w-72 md:w-80 p-2 m-2"
-                  disabled
-                  value={token}
-                />
-              </span>
-              <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-                <CopyToClipboard text={token} onCopy={() => setCopied(true)}>
-                  <button className="btn">
-                    <GrCopy className="mr-2 text-lg" />
-                    Copy
-                  </button>
-                </CopyToClipboard>
-                {copied ? (
-                  <span className="text-green-500 animate-[wiggle_1s_ease-in-out_infinite] ml-4">
-                    <GrFormCheckmark className="mr-2 text-lg ml-3" />
-                    Copied
-                  </span>
-                ) : null}
-              </div>
-            </p>
+            <p className="text-gray-500 grid w-full">Connection Token: </p>
+            <span className="text-gray-300">
+              <input
+                type="text"
+                className="input input-bordered w-72 md:w-80 p-2 m-2"
+                disabled
+                value={token}
+              />
+            </span>
+            <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
+              <CopyToClipboard text={token} onCopy={() => setCopied(true)}>
+                <button className="btn">
+                  <GrCopy className="mr-2 text-lg" />
+                  Copy
+                </button>
+              </CopyToClipboard>
+              {copied ? (
+                <span className="text-green-500 animate-[wiggle_1s_ease-in-out_infinite] ml-4">
+                  <GrFormCheckmark className="mr-2 text-lg ml-3" />
+                  Copied
+                </span>
+              ) : null}
+            </div>
             <span className="text-gray-300 p-1">
               <p className="text-gray-500 p-2 grid w-full"> Account Type </p>
               <div className="btn-group btn-group-horizontal">
@@ -207,6 +200,62 @@ const Index: NextPage = () => {
       </div>
     </div>
   );
+};
+
+type Session = {
+  user: {
+    email: string;
+  };
+  expires: string;
+};
+
+export const getServerSideProps = async (context: any) => {
+  await dbConnect();
+  var userReturnData = null;
+  const session: Session | null = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  } else {
+    session.user = {
+      email: session.user.email,
+    };
+  }
+  console.log(session);
+  const userData = await clientPromise
+    .then(async (client) => {
+      const db = client.db();
+      const user = await db
+        .collection("users")
+        .findOne({ email: session.user.email });
+      userReturnData = {
+        email: user?.email,
+        connection_token: user?.connection_token,
+        server_name: user?.server_name,
+        license_renewal: user?.license_renewal,
+        public_token: user?.public_token,
+        isAdmin: user?.isAdmin,
+        role: user?.role,
+        username: user?.username,
+      };
+      return userReturnData;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(userData)),
+    },
+  };
 };
 
 export default Index;
