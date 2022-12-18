@@ -52,7 +52,12 @@ export default function PlayerStats({}: Props) {
         <div className="stat-figure text-secondary">
           <div className="avatar online">
             <div className="w-16 rounded-full">
-              <Image src="https://placeimg.com/128/128/people" alt="imagine1" />
+              <Image
+                src="https://placeimg.com/128/128/people"
+                alt="imagine1"
+                width={100}
+                height={100}
+              />
             </div>
           </div>
         </div>

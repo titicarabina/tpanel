@@ -3,7 +3,7 @@ Source :
 https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/utils/dbConnect.js 
 **/
 import mongoose from "mongoose";
-
+mongoose.set('strictQuery', false);
 if (!process.env.mongodburl) {
   throw new Error("Please add your mongodburl to .env.local");
 }

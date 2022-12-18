@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { unstable_getServerSession } from "next-auth/next";
 import authOptions from "../../../pages/api/auth/[...nextauth]";
 import dbConnect from "../../../utils/dbConnect";
+import User from "../../../model/User";
 
 type userData = {
   user: {
@@ -25,18 +26,11 @@ type userData = {
 };
 
 const Index = (user: userData) => {
-  const [token, setToken] = React.useState(user.user.connection_token);
   const [serverName, setServerName] = React.useState("Vamos Romania Roleplay");
   const [licenseRenewal, setLicenseRenewal] = React.useState("2022-01-01");
-  const [error, setError] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const [userData, setUserData] = React.useState(user);
-
-  useEffect(() => {
-    console.log("User data: ", userData);
-  }, [userData]);
-
+  const [secCopied, setSecCopied] = React.useState(false);
   return (
     <div className="flex">
       <SideBar />
@@ -159,23 +153,53 @@ const Index = (user: userData) => {
                 />
               </span>
             </p>
-            <p className="text-gray-500 grid w-full">Connection Token: </p>
+            <p className="text-gray-500 grid w-full">Public Token: </p>
             <span className="text-gray-300">
               <input
                 type="text"
                 className="input input-bordered w-72 md:w-80 p-2 m-2"
                 disabled
-                value={token}
+                value={userData.user.public_token}
+                readOnly
               />
             </span>
             <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
-              <CopyToClipboard text={token} onCopy={() => setCopied(true)}>
+              <CopyToClipboard
+                text={userData.user.public_token}
+                onCopy={() => setCopied(true)}
+              >
                 <button className="btn">
                   <GrCopy className="mr-2 text-lg" />
                   Copy
                 </button>
               </CopyToClipboard>
               {copied ? (
+                <span className="text-green-500 animate-[wiggle_1s_ease-in-out_infinite] ml-4">
+                  <GrFormCheckmark className="mr-2 text-lg ml-3" />
+                  Copied
+                </span>
+              ) : null}
+            </div>
+            <p className="text-gray-500 grid w-full">Secret Token: </p>
+            <span className="text-gray-300 select-none">
+              <input
+                type="text"
+                className="input input-bordered w-72 md:w-80 p-2 m-2 blur-sm select-none cursor-pointer hover:blur-none"
+                value={userData.user.connection_token}
+                readOnly
+              />
+            </span>
+            <div className="btn-group btn-group-vertical lg:btn-group-horizontal">
+              <CopyToClipboard
+                text={userData.user.connection_token}
+                onCopy={() => setSecCopied(true)}
+              >
+                <button className="btn">
+                  <GrCopy className="mr-2 text-lg" />
+                  Copy
+                </button>
+              </CopyToClipboard>
+              {secCopied ? (
                 <span className="text-green-500 animate-[wiggle_1s_ease-in-out_infinite] ml-4">
                   <GrFormCheckmark className="mr-2 text-lg ml-3" />
                   Copied
@@ -210,7 +234,6 @@ type Session = {
 };
 
 export const getServerSideProps = async (context: any) => {
-  await dbConnect();
   var userReturnData = null;
   const session: Session | null = await unstable_getServerSession(
     context.req,
@@ -229,31 +252,23 @@ export const getServerSideProps = async (context: any) => {
       email: session.user.email,
     };
   }
-  console.log(session);
-  const userData = await clientPromise
-    .then(async (client) => {
-      const db = client.db();
-      const user = await db
-        .collection("users")
-        .findOne({ email: session.user.email });
-      userReturnData = {
-        email: user?.email,
-        connection_token: user?.connection_token,
-        server_name: user?.server_name,
-        license_renewal: user?.license_renewal,
-        public_token: user?.public_token,
-        isAdmin: user?.isAdmin,
-        role: user?.role,
-        username: user?.username,
-      };
-      return userReturnData;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  await dbConnect();
+  const client = await clientPromise;
+  const user = await User.findOne({ email: session.user.email });
+  userReturnData = {
+    email: user?.email,
+    connection_token: user?.connection_token,
+    server_name: user?.server_name,
+    license_renewal: user?.license_renewal,
+    public_token: user?.public_token,
+    isAdmin: user?.isAdmin,
+    role: user?.role,
+    username: user?.username,
+  };
+  client.close();
   return {
     props: {
-      user: JSON.parse(JSON.stringify(userData)),
+      user: JSON.parse(JSON.stringify(userReturnData)),
     },
   };
 };

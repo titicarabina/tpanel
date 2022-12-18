@@ -55,6 +55,10 @@ const userSchema = new Schema({
     required: false,
     unique: true,
   },
+  accoutType: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String,
   },

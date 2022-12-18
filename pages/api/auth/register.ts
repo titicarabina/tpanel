@@ -6,8 +6,8 @@ import User from "../../../model/User";
 import bcrypt from "bcrypt";
 import clientPromise from "../../../lib/mongodb";
 const saltRounds = parseInt(process.env.SALT_ROUNDS, 10)
-var generatedToken = cryptoRandomString({ length: 20, type: 'url-safe' })
-var publicGeneratedToken = cryptoRandomString({ length: 20, type: 'url-safe' })
+var generatedToken = cryptoRandomString({ length: 100, type: 'url-safe' })
+var publicGeneratedToken = cryptoRandomString({ length: 100, type: 'url-safe' })
 interface ResponseData {
   error?: string;
   msg?: string;
@@ -33,11 +33,13 @@ await dbConnect();
 const client = await clientPromise;
 const emailUser = await User.findOne({ email: email });
 const userNameuser = await User.findOne({ username: username });
-const token = await User.findOne({ connection_token: generatedToken });
-const public_token = await User.findOne({ public_token: publicGeneratedToken });
+var token = await User.findOne({ connection_token: generatedToken });
+var public_token = await User.findOne({ public_token: publicGeneratedToken });
   while (token || public_token) {
-    generatedToken = await cryptoRandomString({ length: 20, type: 'url-safe' })
-    publicGeneratedToken = await cryptoRandomString({ length: 20, type: 'url-safe' })
+    generatedToken = await cryptoRandomString({ length: 100, type: 'url-safe' })
+    publicGeneratedToken = await cryptoRandomString({ length: 100, type: 'url-safe' })
+    token = await User.findOne({ connection_token: generatedToken });
+    public_token = await User.findOne({ public_token: publicGeneratedToken });
   }
   if (emailUser) {
     return { error: "Email already exists" };
@@ -83,16 +85,28 @@ export default async function handler(
     connection_token: generatedToken,
     public_token: publicGeneratedToken,
     role: "Superuser",
+    accoutType: "premium",
   });
   await newUser
-    .save()
-    .then(() =>
-      res.status(200).json({ msg: "Successfuly created new User: " + newUser }),
-      console.log("User Created")
-    )
-    .catch ((err: string) =>
-    console.log("Error on '/api/register'" + err)
-  );
+  .save()
+  .then(() => {
+    // send a success response to the client
+    res.status(200).json({ msg: "Successfuly created new User: " + newUser });
+
+    // log a message to the console
+    console.log("User Created");
+
+    // close the database client
     client.close();
-    return res.status(200).json({ msg: "Response for Tebex" });
+  })
+  .catch((err: string) => {
+    // log an error message to the console
+    console.log("Error on '/api/register'" + err);
+
+    // send an error response to the client
+    res.status(400).json({ msg: "Error..." });
+
+    // close the database client
+    client.close();
+  });
 }
