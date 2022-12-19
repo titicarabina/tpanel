@@ -10,8 +10,15 @@ function usePlayerSearch(query: any, pageNumber: number) {
         license: query.license,
         citizenid: query.citizenid,
         money: query.money,
-        
+        moneytype: query.moneytype,
+        moneymode: query.moneymode,
+        charinfo: query.charinfo,
+        job: query.job,
+        gang: query.gang,
+        metadata: query.metadata,
+        inventory: query.inventory,
         page: pageNumber,
+        limit: 10,
       },
     }).then((res) => {
       console.log(res.data);
