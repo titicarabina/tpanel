@@ -15,6 +15,7 @@ async function sendEmail({ to, token }: SendEmailProps) {
       user: process.env.EMAIL_USERNAME,
       pass: process.env.EMAIL_PASSWORD,
     },
+    tls: { rejectUnauthorized: false }
   });
   const fullLink = `${BASE_URL}/reset-password?token=${token}`
 

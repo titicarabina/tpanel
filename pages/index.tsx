@@ -1,24 +1,17 @@
 import type { NextPage } from "next";
 import Router from "next/router";
-import logo from "../public/tpanel2.png";
 import Image from "next/image";
-
+import { GiArchiveRegister } from "react-icons/gi";
 const Home: NextPage = () => {
   return (
     <>
       <header>
         <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
           <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a href="https://flowbite.com" className="flex items-center">
-              <Image
-                width={100}
-                height={100}
-                src={logo}
-                className="mr-3 h-6 sm:h-9 w-max"
-                alt="Tpanel Logo"
-              />
+            <a href="/" className="flex items-center">
+              <GiArchiveRegister className="mr-3 h-6 sm:h-9 w-max text-blue-600" />
               <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                TPanel
+                Registru Online
               </span>
             </a>
             <div
@@ -28,7 +21,7 @@ const Home: NextPage = () => {
               }}
             >
               <a className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                Log in
+                Logare
               </a>
             </div>
             <div
@@ -42,7 +35,7 @@ const Home: NextPage = () => {
                     className="block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
                     aria-current="page"
                   >
-                    Home
+                    Despre noi
                   </a>
                 </li>
                 <li>
@@ -50,7 +43,7 @@ const Home: NextPage = () => {
                     href="#"
                     className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                   >
-                    About Us
+                    Preturi
                   </a>
                 </li>
                 <li>
@@ -71,17 +64,19 @@ const Home: NextPage = () => {
         <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
           <div className="mr-auto place-self-center lg:col-span-7">
             <h1 className="max-w-2xl mb-4 text-4xl font-extrabold leading-none md:text-5xl xl:text-6xl dark:text-white">
-              Payments tool for software companies
+              Inregistrare online intrari si iesiri.
             </h1>
             <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
-              From checkout to global sales tax compliance, companies around the
-              world use Flowbite to simplify their payment stack.
+              Aceasta aplicatie este proiectata pentru a va oferi o solutie
+              eficienta si usor de utilizat pentru a tine evidenta si a gestiona
+              intrarile si iesirile de materiale si echipamente si servicii din
+              cadrul companiei dumneavoastra.
             </p>
             <a
               href="#"
               className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900"
             >
-              Get started
+              Inceaca gratuit
               <svg
                 className="w-5 h-5 ml-2 -mr-1"
                 fill="currentColor"
@@ -99,7 +94,7 @@ const Home: NextPage = () => {
               href="#"
               className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
             >
-              Speak to Sales
+              Vorbeste cu un agent
             </a>
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
@@ -116,7 +111,8 @@ const Home: NextPage = () => {
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
           <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl">
-            You’ll be in good company
+            Aplicatie intuitiva pentru inregistrarea online a intrarilor si
+            iesirilor
           </h2>
           <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
             <a href="#" className="flex justify-center items-center">
@@ -334,11 +330,13 @@ const Home: NextPage = () => {
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
-              Designed for business teams like yours
+              Optimizati activitatile legate de bransamentele electrice cu
+              aplicatia noastra.
             </h2>
             <p className="text-gray-500 sm:text-xl dark:text-gray-400">
-              Here at Flowbite we focus on markets where technology, innovation,
-              and capital can unlock long-term value and drive economic growth.
+              Solutie eficienta si usor de utilizat pentru gestionarea
+              intrarilor si iesirilor, planificarea activitatilor si colaborarea
+              cu echipa.
             </p>
           </div>
           <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
@@ -358,12 +356,11 @@ const Home: NextPage = () => {
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Marketing
+                Eficienta
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Plan it, create it, launch it. Collaborate seamlessly with all
-                the organization and hit your marketing goals every month with
-                our marketing plan.
+                Eficienta in gestionarea intrarilor si iesirilor de materiale si
+                echipamente
               </p>
             </div>
             <div>
@@ -377,10 +374,11 @@ const Home: NextPage = () => {
                   <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
                 </svg>
               </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-white">Legal</h3>
+              <h3 className="mb-2 text-xl font-bold dark:text-white">
+                Planificare
+              </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Protect your organization, devices and stay compliant with our
-                structured workflows and custom permissions made for you.
+                Posibilitatea de a planifica si organiza activitatile.
               </p>
             </div>
             <div>
@@ -400,11 +398,10 @@ const Home: NextPage = () => {
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Business Automation
+                Stocuri
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Auto-assign tasks, send Slack messages, and much more. Now power
-                up with hundreds of new templates to help you get started.
+                Monitorizarea stocurilor de materiale in timp real
               </p>
             </div>
             <div>
@@ -424,11 +421,11 @@ const Home: NextPage = () => {
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Finance
+                Comunicare
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Audit-proof software built for critical financial operations
-                like month-end close and quarterly budgeting.
+                Facilitatea de colaborare si comunicare cu colegii si partenerii
+                de afaceri
               </p>
             </div>
             <div>
@@ -443,11 +440,11 @@ const Home: NextPage = () => {
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Enterprise Design
+                Simplitate
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Craft beautiful, delightful experiences for both marketing and
-                product with real cross-company collaboration.
+                Interfata simpla si intuitiva, usor de utilizat pentru orice
+                utilizator
               </p>
             </div>
             <div>
@@ -466,12 +463,12 @@ const Home: NextPage = () => {
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-white">
-                Operations
+                Optimizare
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Keep your company’s lights on with customizable, iterative, and
-                structured workflows built for all efficient teams and
-                individual.
+                Optimizata pentru accesarea de pe orice dispozitiv, inclusiv pe
+                telefoanele mobile, astfel incat sa puteti gestiona activitatile
+                companiei oriunde si oricand
               </p>
             </div>
           </div>
@@ -482,18 +479,22 @@ const Home: NextPage = () => {
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
-              We didn&apos;t reinvent the wheel
+              Inovatie si eficienta
             </h2>
             <p className="mb-4">
-              dasdas We are strategists, designers and developers. Innovators
-              and problem solvers. Small enough to be simple and quick, but big
-              enough to deliver the scope you want at the pace you need. Small
-              enough to be simple and quick, but big enough to deliver the scope
-              you want at the pace you need.
+              Este adevarat ca nu am inventat roata, ci doar am imbunatatit-o
+              prin oferirea unei solutii inovatoare si eficiente pentru
+              gestionarea activitatilor. Ne-am concentrat asupra nevoilor
+              utilizatorilor si am dezvoltat o aplicatie care sa raspunda
+              acestor nevoi prin facilitarea planificarii, colaborarii si
+              monitorizarii in timp real. Ne-am asigurat ca aceasta este usor de
+              utilizat si optimizata pentru accesarea de pe orice dispozitiv,
+              astfel incat sa va puteti gestiona activitatile oriunde si
+              oricand.
             </p>
             <p>
-              We are strategists, designers and developers. Innovators and
-              problem solvers. Small enough to be simple and quick.
+              In acest fel, am imbunatatit roata prin oferirea unei solutii
+              moderne si adaptate la cerintele actuale
             </p>
           </div>
           <div className="grid grid-cols-2 gap-4 mt-8">
@@ -519,40 +520,18 @@ const Home: NextPage = () => {
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">
-              Powering innovation at{" "}
-              <span className="font-extrabold">200,000+</span> companies
-              worldwide
+              Va multumim pentru interesul acordat aplicatiei noastre!
             </h2>
             <p className="mb-4 font-light">
-              Track work across the enterprise through an open, collaborative
-              platform. Link issues across Jira and ingest data from other
-              software development tools, so your IT support and operations
-              teams have richer contextual information to rapidly respond to
-              requests, incidents, and changes.
+              Suntem o echipa dedicata si am lucrat cu pasiune pentru a va oferi
+              o solutie inovatoare si eficienta pentru gestionarea
+              activitatilor. Suntem convinsi ca aceasta va va fi de mare ajutor
+              si va va permite sa va organizati si sa va planificati cu usurinta
+              activitatile, sa va monitorizati stocurile de materiale si sa va
+              gestionati documentatia in mod eficient. Nu ezitati sa ne
+              contactati pentru orice intrebari sau sugestii. Va multumim pentru
+              alegerea noastra!
             </p>
-            <p className="mb-4 font-medium">
-              Deliver great service experiences fast - without the complexity of
-              traditional ITSM solutions.Accelerate critical development work,
-              eliminate toil, and deploy changes with ease.
-            </p>
-            <a
-              href="#"
-              className="inline-flex items-center font-medium text-blue-600 hover:text-blue-800 dark:text-blue-500 dark:hover:text-blue-700"
-            >
-              Learn more
-              <svg
-                className="ml-1 w-6 h-6"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </a>
           </div>
         </div>
       </section>
@@ -561,16 +540,16 @@ const Home: NextPage = () => {
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-sm text-center">
             <h2 className="mb-4 text-4xl font-extrabold leading-tight text-gray-900 dark:text-white">
-              Start your free trial today
+              Creaza-ti contul acum
             </h2>
             <p className="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg">
-              Try Flowbite Platform for 30 days. No credit card required.
+              Incearca Registrul Online Gratuit pentru 30 de zile.
             </p>
             <a
               href="#"
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
             >
-              Free trial for 30 days
+              Sunt curios!
             </a>
           </div>
         </div>

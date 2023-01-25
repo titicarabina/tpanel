@@ -4,13 +4,13 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import User from "../../../model/User";
 import clientPromise from '../../../lib/mongodb';
 import dbConnect from '../../../utils/dbConnect';
-export default async function handler(  req: NextApiRequest,
-    res: NextApiResponse) {
-    if (req.method !== "POST") {
-        return res
-            .status(404)
-            .json({ error: "Bad Request" });
-    }
+export default async function handler(req: NextApiRequest,
+  res: NextApiResponse) {
+  if (req.method !== "POST") {
+    return res
+      .status(404)
+      .json({ error: "Bad Request" });
+  }
   const { email } = req.body
   await dbConnect();
   const client = await clientPromise;
@@ -22,6 +22,7 @@ export default async function handler(  req: NextApiRequest,
     expires.setHours(expires.getHours() + 1);
     try {
       await User.updateOne({ email: email }, { $set: { pwd_reset_token: token, token_reset_expires: expires.toISOString() }, $currentDate: { lastModified: true } })
+      console.log("User updated")
       await emailHelper.sendEmail({ to: email, token })
       console.log("email sent")
       res.status(200).json("Email sent")
