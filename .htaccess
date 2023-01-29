@@ -11,3 +11,6 @@ RewriteRule ^(.*)$ http://127.0.0.1:3000/ [P,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule "^(.+)favicon\.ico(|\?.+)$"  "/public/favicon.ico" [PT]

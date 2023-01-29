@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import logo from "../public/tpanel2.png";
+import cashier from "../public/cashier.svg";
 import Image from "next/image";
 import { validate as uuidValidate } from "uuid";
 import type { NextPage } from "next";
@@ -61,14 +61,17 @@ const Resetpassword: NextPage = () => {
       <header>
         <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
           <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a href="https://flowbite.com" className="flex items-center">
+            <a href="/" className="flex items-center">
               <Image
-                src={logo}
+                src={cashier}
                 className="mr-3 h-6 sm:h-9 w-max"
                 alt="Tpanel Logo"
               />
-              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                TPanel
+              <span className="self-center text-xl font-semibold whitespace-nowrap text-gray-500">
+                <span className="self-center text-xl font-semibold whitespace-nowrap text-blue-500">
+                  Reg
+                </span>
+                Line
               </span>
             </a>
             <div
@@ -78,7 +81,7 @@ const Resetpassword: NextPage = () => {
               }}
             >
               <a className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                Log in
+                Autentificare
               </a>
             </div>
             <div
@@ -94,37 +97,36 @@ const Resetpassword: NextPage = () => {
             {error === "invalid" ? (
               <div>
                 <h2 className="mb-4 text-4xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                  Link Invalid or Expired!
+                  Link Invalid sau expirat!
                 </h2>
                 <p className="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg">
                   {" "}
-                  The link is Expired or Invalid , you will be redirected in 5
-                  sec.
+                  Link invalid sau expirat.
                 </p>
               </div>
             ) : (
               <div>
                 <h2 className="mb-4 text-4xl font-extrabold leading-tight text-gray-900 dark:text-white">
-                  {isSuccess ? "Password changed" : "Reset password"}
+                  {isSuccess ? "Parola schimbata" : "Reseteaza parola"}
                 </h2>
                 <p className="mb-6 font-light text-gray-500 dark:text-gray-400 md:text-lg">
                   {isSuccess
-                    ? "Your password has been changed."
-                    : "Please enter your new password. This link is active for 24 hrs."}
+                    ? "Parola a fost schimbata cu succes."
+                    : "Introdu parola noua.Acest link este activ 24 de ore."}
                 </p>
                 {!isSuccess ? (
                   <div>
                     <input
                       type="password"
                       className="w-full px-4 py-2 mb-4 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white"
-                      placeholder="New password"
+                      placeholder="Parola noua"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
                     />
                     <input
                       type="password"
                       className="w-full px-4 py-2 mb-4 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white"
-                      placeholder="Repeat new password"
+                      placeholder="Repeta noua parola"
                       value={newPasswordRepeat}
                       onChange={(e) => setNewPasswordRepeat(e.target.value)}
                     />
@@ -132,16 +134,14 @@ const Resetpassword: NextPage = () => {
                       className="w-full px-4 py-2 mb-4 text-white bg-blue-700 rounded-lg focus:outline-none focus:bg-blue-600"
                       onClick={submit}
                     >
-                      {isLoading ? "Loading..." : "Reset password"}
+                      {isLoading ? "incarcare..." : "Reseteaza parola"}
                     </button>
                     {error === "expired" ? (
-                      <p className="text-red-500">This link is expired.</p>
+                      <p className="text-red-500">Link expirat.</p>
                     ) : error === "unexpected" ? (
-                      <p className="text-red-500">
-                        An unexpected error occurred.
-                      </p>
+                      <p className="text-red-500">Eroare.</p>
                     ) : error === "not_equal" ? (
-                      <p className="text-red-500">Passwords are not equal.</p>
+                      <p className="text-red-500">Parolele nu sunt lafel.</p>
                     ) : error === "eroare" ? (
                       <p className="text-red-500">
                         Eroare , Link expirat sau token invalid.

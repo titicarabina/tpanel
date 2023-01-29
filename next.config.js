@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   images: {
     domains: ['flowbite.s3.amazonaws.com', "flowbite.com", "mdbcdn.b-cdn.net", "flowbite.s3.amazonaws.com", "placeimg.com"],

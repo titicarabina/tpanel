@@ -1,0 +1,5 @@
+{
+    "watch": ["server.js"],
+    "exec": "node tsconfig.json server.js",
+    "ext": "js ts"
+  }

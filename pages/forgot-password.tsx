@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import logo from "../public/tpanel2.png";
+import cashier from "../public/cashier.svg";
 import Image from "next/image";
 import type { NextPage } from "next";
 
@@ -37,14 +37,17 @@ const Forgotpassword: NextPage = () => {
       <header>
         <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
           <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a href="https://flowbite.com" className="flex items-center">
+            <a href="/" className="flex items-center">
               <Image
-                src={logo}
+                src={cashier}
                 className="mr-3 h-6 sm:h-9 w-max"
-                alt="Tpanel Logo"
+                alt="RegLine Logo"
               />
-              <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-                TPanel
+              <span className="self-center text-xl font-semibold whitespace-nowrap text-gray-500">
+                <span className="self-center text-xl font-semibold whitespace-nowrap text-blue-500">
+                  Reg
+                </span>
+                Line
               </span>
             </a>
             <div
@@ -54,7 +57,7 @@ const Forgotpassword: NextPage = () => {
               }}
             >
               <a className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                Log in
+                Autentificare
               </a>
             </div>
             <div
@@ -70,24 +73,24 @@ const Forgotpassword: NextPage = () => {
             {isSuccess ? (
               <>
                 <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-                  We have sent an email to {email} .
+                  Am trimis un email la {email} .
                 </h2>
                 <p className="mt-4 text-gray-500 dark:text-gray-400">
-                  Please check your inbox and click the link to reset your
-                  password. If the email doesn&apos;t appear within a few
-                  minutes, check your spam folder. Please note that if your
-                  email address is not registered, you will not receive an
-                  email.
+                  Te rugăm să verifici casuta ta de e-mail și să accesezi
+                  link-ul pentru a-ți reseta parola. Dacă e-mail-ul nu apare în
+                  câteva minute, te rugăm să verifici folder-ul de spam. Te
+                  rugăm să ții cont că dacă adresa ta de e-mail nu este
+                  înregistrată, nu vei primi un e-mail.
                 </p>
               </>
             ) : (
               <>
                 <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
-                  Forgot your password?
+                  Ai uitat parola?
                 </h2>
                 <p className="mt-4 text-gray-500 dark:text-gray-400">
-                  Enter your email address and we&apos;ll send you a link to
-                  reset your password.
+                  Introdu adresa ta de email si iti vom trimite un link pentru
+                  a-ti reseta parola.
                 </p>
                 <div className="mt-8">
                   <div className="mt-6">
@@ -96,7 +99,7 @@ const Forgotpassword: NextPage = () => {
                         htmlFor="email"
                         className="block text-sm font-medium text-gray-700 dark:text-gray-200"
                       >
-                        Email address
+                        Adresa de email
                       </label>
                       <div className="mt-1">
                         <input
@@ -116,7 +119,7 @@ const Forgotpassword: NextPage = () => {
                           className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                           disabled={isLoading}
                         >
-                          {isLoading ? "Loading..." : "Reset password"}
+                          {isLoading ? "Incarcare..." : "Resetează parola"}
                         </button>
                       </div>
                     </form>

@@ -2,14 +2,7 @@ import React from "react";
 import { HiMenuAlt3, HiLogout, HiUser } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
-import logo from "../public/tpanel2.png";
-import Image from "next/image";
-import {
-  AiOutlineUser,
-  AiOutlineDeploymentUnit,
-  AiFillCar,
-} from "react-icons/ai";
-import { BsHouseFill } from "react-icons/bs";
+import { AiOutlineDeploymentUnit } from "react-icons/ai";
 import { FiMessageSquare } from "react-icons/fi";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
@@ -18,37 +11,27 @@ import { sidebaropen } from "../context/atoms";
 
 export default function Sidebar() {
   const menus = [
-    { name: "Dashboard", link: "/dashboard", icon: MdOutlineDashboard },
+    { name: "Panou", link: "/dashboard", icon: MdOutlineDashboard },
     {
-      name: "Players",
-      link: "/dashboard/players",
-      icon: AiOutlineUser,
-      margin: true,
-    },
-    { name: "Items", link: "/dashboard/items", icon: AiOutlineDeploymentUnit },
-    { name: "Cars", link: "/dashboard/cars", icon: AiFillCar },
-    { name: "Houses", link: "/dashboard/houses", icon: BsHouseFill },
-    {
-      name: "Jobs",
-      link: "/dashboard/jobs",
+      name: "Bransamente",
+      link: "/dashboard/bransamente",
       icon: AiOutlineDeploymentUnit,
       margin: true,
     },
-    { name: "Gangs", link: "/dashboard/gangs", icon: AiFillCar },
     {
-      name: "Logs",
+      name: "Rapoarte",
       link: "/dashboard/logs",
       icon: FiMessageSquare,
       margin: true,
     },
     {
-      name: "Settings",
+      name: "Setari",
       link: "/dashboard/settings",
       icon: RiSettings4Line,
       margin: true,
     },
     {
-      name: "Profile",
+      name: "Profil",
       link: "/dashboard/settings",
       icon: HiUser,
       margin: true,
@@ -58,25 +41,32 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`bg-[#0e0e0e] min-h-screen h-full ${
+      className={`bg-[#0e0e0e] min-h-screen h-full duration-500 ${
         open ? "w-72" : "w-16"
-      } duration-500 text-gray-100 px-4 z-[11]`}
+      } text-gray-100 px-4 z-[11]`}
     >
-      <div className="py-3 flex justify-between">
-        <div className={`${open && "pl-20 pt-10 pb-10"}`}>
-          <Image
-            src={logo}
-            alt="Logo"
-            className={`${open ? "w-20" : "hidden"}`}
-          />
-        </div>
+      <div
+        className={`duration-500 pt-3 cursor-pointer ${
+          !open ? "" : "flex justify-between"
+        }`}
+      >
         <HiMenuAlt3
           size={26}
           className="cursor-pointer"
           onClick={() => setOpen(!open)}
         />
       </div>
-      <div className="mt-4 flex flex-col gap-4 relative">
+      <span
+        className={`cursor-pointer flex justify-center ${
+          open ? "text-lg" : "text-sm mt-5"
+        } items-center text-xl font-semibold whitespace-nowrap text-gray-500`}
+      >
+        <span className="self-center font-semibold whitespace-nowrap text-blue-500">
+          Reg
+        </span>
+        Line
+      </span>
+      <div className="mt-10 flex flex-col gap-4 relative">
         {menus?.map((menu: any, i: any) => (
           <Link
             href={menu?.link}
@@ -97,7 +87,7 @@ export default function Sidebar() {
               {menu?.name}
             </h2>
             <h2
-              className={`${
+              className={`z-10 ${
                 open && "hidden"
               } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
             >
@@ -107,10 +97,9 @@ export default function Sidebar() {
         ))}
       </div>
       <div className="mt-5 flex flex-col gap-4 relative">
-        <Link
+        <a
           onClick={() => signOut()}
-          href="/"
-          className={`mt-5 group flex text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md items-center pb-20`}
+          className={`cursor-pointer mt-5 group flex text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md items-center`}
         >
           <div>
             <HiLogout />
@@ -126,13 +115,14 @@ export default function Sidebar() {
             Logout
           </h2>
           <h2
-            className={`${
+            className={`z-10 ${
               open && "hidden"
-            } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+            } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}
           >
             Logout
           </h2>
-        </Link>
+        </a>
+        <div className="h-[30px]"></div>
       </div>
     </div>
   );
